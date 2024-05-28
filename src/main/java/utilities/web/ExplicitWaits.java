@@ -40,4 +40,12 @@ public class ExplicitWaits {
         ExplicitWaitManager.getExplicitWait().until(ExpectedConditions.urlToBe(url));
     }
 
+    public static void sleepWait(long numberOfMilSec){
+        try {
+            Thread.sleep(numberOfMilSec);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

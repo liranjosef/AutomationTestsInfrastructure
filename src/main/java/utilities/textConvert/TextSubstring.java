@@ -8,5 +8,10 @@ public class TextSubstring {
         return StringUtils.substringBetween(text, fromChar, toChar);
     }
 
+    public static String cutStringLastCharacter(String text){
+        return StringUtils.substring(text,0,text.length()-1);
+    }
+
+
 
 }

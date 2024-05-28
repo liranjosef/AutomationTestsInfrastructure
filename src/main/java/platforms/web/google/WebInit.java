@@ -1,4 +1,4 @@
-package platforms.web;
+package platforms.web.google;
 
 import base.google.BaseGoogle;
 import utilities.web.*;
@@ -16,7 +16,7 @@ public class WebInit extends BaseGoogle {
         ImplicitWaitManager.setImplicitWait(15);
         ExplicitWaitManager.setExplicitWait(15);
         initClientEnvironmentVariables();
-        DriverManager.getDriver().get("x");
+        DriverManager.getDriver().get(fullUrl);
 
     }
 
@@ -28,6 +28,7 @@ public class WebInit extends BaseGoogle {
         } else if (environment.equalsIgnoreCase("prod")) {
             environmentBaseUrl = "";
         }
-        fullUrl = environmentBaseUrl + "x";
+        fullUrl = environmentBaseUrl + "https://www.google.com/";
     }
+
 }

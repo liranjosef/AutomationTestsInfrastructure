@@ -1,3 +1,4 @@
+/*
 package utilities.random;
 
 import com.github.javafaker.Faker;
@@ -27,3 +28,4 @@ public class RandomData {
     }
 
 }
+*/

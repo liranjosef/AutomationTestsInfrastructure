@@ -22,6 +22,14 @@ public abstract class BaseGoogle {
     protected static String platformName;
     protected static String browserType;
 
+    //API
+    protected static String jsonString;
+    protected static String pathGetSpecific;
+    protected static String pathGetAll;
+    protected static String pathPost;
+    protected static String pathPut;
+    protected static String pathDelete;
+
     //SQL
     protected static String dbUrl;
     protected static String userName;
@@ -40,6 +48,8 @@ public abstract class BaseGoogle {
 
     //RabbitMQ
     protected static Channel channel;
+
+
 
 
 }

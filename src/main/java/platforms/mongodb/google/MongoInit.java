@@ -1,4 +1,4 @@
-package platforms.mongodb;
+package platforms.mongodb.google;
 
 import base.google.BaseGoogle;
 import com.mongodb.MongoClient;

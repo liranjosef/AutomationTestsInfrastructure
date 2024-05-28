@@ -13,6 +13,10 @@ public class ExplicitWaitManager {
         return explicitWait;
     }
 
+    public static int getExplicitWaitCurrentTime(){
+        return explicitWaitCurrentTime;
+    }
+
     public static void setExplicitWait(int seconds) {
         explicitWaitCurrentTime = seconds;
         explicitWait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(seconds));

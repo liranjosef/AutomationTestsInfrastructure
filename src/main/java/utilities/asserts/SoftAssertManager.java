@@ -4,7 +4,7 @@ import org.testng.asserts.SoftAssert;
 
 public class SoftAssertManager {
 
-    private static SoftAssert softAssert;
+    private static SoftAssert softAssert = new SoftAssert();
 
 
     public static SoftAssert getSoftAssert() {

@@ -1,6 +1,11 @@
 package utilities.asserts;
 
+import org.testng.asserts.SoftAssert;
+
+import java.util.ArrayList;
+
 import static utilities.asserts.SoftAssertManager.getSoftAssert;
+import static utilities.asserts.SoftAssertManager.setSoftAssert;
 
 public class Verifications {
 
@@ -64,10 +69,36 @@ public class Verifications {
     public static void verifyNull(Object results){
         getSoftAssert().assertNull(results);
     }
+    public static void verifyStringContains(String fullText, String text){
+        getSoftAssert().assertTrue(fullText.contains(text));
+    }
+    public static void verifyStringContains(String fullText, String text, String message){
+        getSoftAssert().assertTrue(fullText.contains(text),message);
+    }
+    public static void verifyArrayListsEquals(ArrayList<Object> array1, ArrayList<Object> array2){
+        if (!array1.isEmpty() && array1.size() == array2.size()){
+            for (int i = 0 ; i< array1.size();){
+                if (array2.contains(array1.get(i))){
+                    Object objectToDelete = array1.get(i);
+                    array1.remove(objectToDelete);
+                    array2.remove(objectToDelete);
+                }else {
+                    i++;
+                }
+            }if (!array1.isEmpty()){
+                Verifications.verifyFail("array1 and array2 not have the same data. the gap between is: array1 = " + array1 + "| array2 = " + array2);
+            }
+        }else {
+            Verifications.verifyFail("array1 and array2 not have the same length: array1 = " + array1.size() + " and array2 = " + array2.size());
+        }
+    }
     public static void verifyFail(String message){
         getSoftAssert().fail(message);
     }
-    public static void verifyAll(String message){
-        getSoftAssert().assertAll(message);
+    public static void verifyAll(){
+        //assert and reset verifications
+        SoftAssert softAssertToCheck = getSoftAssert();
+        setSoftAssert(new SoftAssert());
+        softAssertToCheck.assertAll();
     }
 }

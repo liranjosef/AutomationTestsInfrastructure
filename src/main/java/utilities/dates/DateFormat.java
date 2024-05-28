@@ -3,37 +3,42 @@ package utilities.dates;
 import lombok.Getter;
 import lombok.Setter;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 @Getter @Setter
 public class DateFormat {
 
-    private static String dateFormatDDMMYYYYhhmm;
-    private static String dateFormatYYYYMMDDThhmmss;
-    private static String dateFormatDDMMYYYYhhmmss;
+    public static Date createISODate(String isoDate){
+        return Date.from(Instant.parse(isoDate));
+    }
 
-    public static String createDateFormatDDMMYYYYhhmm(){
+    public static String getDateFormatDDMMYYYYhhmm(){
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyyHH:mm");
         Date date = new Date();
-        dateFormatDDMMYYYYhhmm = simpleDateFormat.format(date);
-        return dateFormatDDMMYYYYhhmm;
+        return simpleDateFormat.format(date);
     }
 
-    public static String createDateFormatYYYYMMDDThhmmss(){
+    public static String getDateFormatYYYYMMDDThhmmss(){
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date date = new Date();
-        dateFormatYYYYMMDDThhmmss = simpleDateFormat.format(date);
-        return dateFormatYYYYMMDDThhmmss;
+        return simpleDateFormat.format(date);
     }
 
-    public static String createDateFormatDDMMYYYYhhmmss(){
+    public static String getDateFormatDDMMYYYYhhmmss(){
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy HH:mm:ss");
         Date date = new Date();
-        dateFormatDDMMYYYYhhmmss = simpleDateFormat.format(date);
-        return dateFormatDDMMYYYYhhmmss;
+        return simpleDateFormat.format(date);
+    }
+
+    public static String getDateFormatYYYYMMDD(){
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return simpleDateFormat.format(date);
     }
 
 

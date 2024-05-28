@@ -5,18 +5,44 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import utilities.storage.ContentClipboard;
 
 import java.util.List;
 
 public class WebActions {
 
     public static void click(WebElement element){
+        ExplicitWaits.visibilityOf(element);
         ExplicitWaits.elementToBeClickable(element);
         element.click();
     }
+    public static void doubleClick(WebElement element){
+        Actions action = new Actions(DriverManager.getDriver());
+        action.doubleClick(element).perform();
+    }
+    public static void clearText(WebElement element){
+        ExplicitWaits.visibilityOf(element);
+        element.clear();
+    }
     public static void sendKeys(WebElement element, String text){
         ExplicitWaits.visibilityOf(element);
+        clearText(element);
+        if (!element.getAttribute("value").isEmpty()){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         element.sendKeys(text);
+    }
+
+    public static void sendKeysAfterClearText(WebElement element, String text){
+        ExplicitWaits.visibilityOf(element);
+        clearText(element);
+        ExplicitWaits.sleepWait(800);
+        element.sendKeys(text);
+
     }
     public static void actionTyping(WebElement element, String text) {
         ExplicitWaits.visibilityOf(element);
@@ -34,6 +60,18 @@ public class WebActions {
         action.contextClick(element).build().perform();
     }
 
+    public static void clearAndCopyPastTextToElement(WebElement element, String text){
+        clearText(element);
+        click(element);
+        ContentClipboard.setStringClipboard(text);
+        clickCtrlAndVKeyboard();
+    }
+    public static void copyPastTextToElement(WebElement element, String text){
+        click(element);
+        ContentClipboard.setStringClipboard(text);
+        clickCtrlAndVKeyboard();
+    }
+
     /**מאונך*/
     public static void verticallyScrollingRegularScrollPage(int pixelCount){
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
@@ -44,15 +82,21 @@ public class WebActions {
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
         js.executeScript("window.scrollBy("+pixelCount+",0)");
     }
+
+    /**@param numberOfPixels positive number to right side | negative number to left side*/
+    public static void scrollLeftOrRight(String scrollCssSelector, String numberOfPixels){
+        JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
+        jse.executeScript("document.querySelector(\""+scrollCssSelector+"\").scrollLeft="+numberOfPixels);
+    }
     public static void printAllElementsList(List<WebElement> webElementsList){
         for (WebElement element : webElementsList){
             System.out.println(element.getText());
         }
     }
 
-
     //Keyboard Actions
     public static void clickEnterKeyboard(WebElement element){
+        ExplicitWaits.visibilityOf(element);
         element.sendKeys(Keys.ENTER);
     }
     public static void clickALTAndKKeyboard(){
@@ -62,6 +106,10 @@ public class WebActions {
     public static void clickESCKeyboard(){
         Actions action = new Actions(DriverManager.getDriver());
         action.keyDown(Keys.ESCAPE).build().perform();
+    }
+    public static void clickCtrlAndVKeyboard(){
+        Actions action = new Actions(DriverManager.getDriver());
+        action.keyDown(Keys.CONTROL).sendKeys("v").build().perform();
     }
 
     //Navigation Actions
